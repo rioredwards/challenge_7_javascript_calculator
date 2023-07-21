@@ -96,8 +96,13 @@ function updateDisplay() {
   } else {
     displayValue = targetOperand;
   }
+  let fixedDisplayValue;
+  if (displayValue !== null && displayValue % 1 !== 0) {
+    fixedDisplayValue = displayValue.toFixed(6);
+  }
+
   updateActiveClass();
-  displayEl.innerText = displayValue || 0;
+  displayEl.innerText = fixedDisplayValue || displayValue || 0;
   log();
 }
 
