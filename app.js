@@ -3,6 +3,7 @@ const numberBtns = document.querySelectorAll(".number");
 const clearBtn = document.getElementById("clear");
 const addBtn = document.getElementById("add");
 const subtractBtn = document.getElementById("subtract");
+const multiplyBtn = document.getElementById("multiply");
 const equalsBtn = document.getElementById("equals");
 
 let displayValue = 0;
@@ -41,6 +42,13 @@ subtractBtn.addEventListener("click", (e) => {
   updateDisplay();
 });
 
+multiplyBtn.addEventListener("click", (e) => {
+  operator = "x";
+  storedOperand = targetOperand;
+  targetOperand = null;
+  updateDisplay();
+});
+
 equalsBtn.addEventListener("click", (e) => {
   switch (operator) {
     case "+":
@@ -48,6 +56,9 @@ equalsBtn.addEventListener("click", (e) => {
       break;
     case "-":
       targetOperand = storedOperand - targetOperand;
+      break;
+    case "x":
+      targetOperand = storedOperand * targetOperand;
       break;
     default:
       // If no operator, do nothing
@@ -92,6 +103,9 @@ function addActiveClass() {
     case "-":
       subtractBtn.classList.add("active");
       break;
+    case "x":
+      multiplyBtn.classList.add("active");
+      break;
     default:
       throw new Error("Invalid operator");
   }
@@ -100,6 +114,7 @@ function addActiveClass() {
 function removeAllActiveClasses() {
   addBtn.classList.remove("active");
   subtractBtn.classList.remove("active");
+  multiplyBtn.classList.remove("active");
 }
 
 updateDisplay();
