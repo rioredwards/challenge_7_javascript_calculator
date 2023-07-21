@@ -55,17 +55,31 @@ function clearAll() {
 function updateDisplay() {
   if (operator) {
     displayValue = targetOperand !== null ? targetOperand : storedOperand;
-    if (operator === "+") {
-      addBtn.classList.add("active");
-    } else {
-      addBtn.classList.remove("active");
-    }
   } else {
-    addBtn.classList.remove("active");
     displayValue = targetOperand;
   }
+  updateActiveClass();
   displayEl.innerText = displayValue || 0;
   log();
+}
+
+function updateActiveClass() {
+  removeAllActiveClasses();
+  if (operator !== null) addActiveClass();
+}
+
+function addActiveClass() {
+  switch (operator) {
+    case "+":
+      addBtn.classList.add("active");
+      break;
+    default:
+      throw new Error("Invalid operator");
+  }
+}
+
+function removeAllActiveClasses() {
+  addBtn.classList.remove("active");
 }
 
 updateDisplay();
