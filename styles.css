@@ -2,6 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+  --total-aspect-ratio: calc(439 / 657);
+  --total-width: 40vh;
+  --total-min-width: 12rem;
+  --total-height: calc(var(--total-width) / var(--total-aspect-ratio));
+  --total-min-height: calc(var(--total-min-width) / var(--total-aspect-ratio));
 }
 
 html {
@@ -34,13 +40,33 @@ span {
 }
 
 img {
-  --aspect-ratio: calc(439 / 657);
-  --width: 40vh;
-  --height: calc(var(--width) / var(--aspect-ratio));
-  position: fixed;
+  position: absolute;
   z-index: 0;
-  width: var(--width);
-  height: var(--height);
-  top: 10vh;
+  height: calc(var(--total-height) + 2.3vh);
+  width: calc(var(--total-width) + 2vh);
+  min-width: var(--total-min-width);
+  min-height: var(--total-min-height);
+  top: 9.4vh;
   pointer-events: none;
+}
+
+.container,
+.container > * {
+  opacity: 0.9;
+}
+
+.container > * {
+  position: absolute;
+  z-index: 2;
+}
+
+.container {
+  background-color: #e1a249;
+  position: absolute;
+  z-index: 1;
+  height: var(--total-height);
+  width: var(--total-width);
+  min-width: var(--total-min-width);
+  min-height: var(--total-min-height);
+  top: 10vh;
 }
