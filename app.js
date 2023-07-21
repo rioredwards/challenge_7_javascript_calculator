@@ -6,6 +6,7 @@ const subtractBtn = document.getElementById("subtract");
 const multiplyBtn = document.getElementById("multiply");
 const divideBtn = document.getElementById("divide");
 const equalsBtn = document.getElementById("equals");
+const changeSignBtn = document.getElementById("change-sign");
 
 let displayValue = 0;
 let targetOperand = null;
@@ -57,6 +58,13 @@ divideBtn.addEventListener("click", (e) => {
   updateDisplay();
 });
 
+changeSignBtn.addEventListener("click", (e) => {
+  if (targetOperand !== null) {
+    targetOperand = targetOperand * -1;
+    updateDisplay();
+  }
+});
+
 equalsBtn.addEventListener("click", (e) => {
   switch (operator) {
     case "+":
@@ -98,7 +106,7 @@ function updateDisplay() {
   }
   let fixedDisplayValue;
   if (displayValue !== null && displayValue % 1 !== 0) {
-    fixedDisplayValue = displayValue.toFixed(6);
+    fixedDisplayValue = displayValue.toFixed(13);
   }
 
   updateActiveClass();

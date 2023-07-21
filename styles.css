@@ -130,5 +130,6 @@ img {
 }
 
 .active {
-  border: 0.7vh inset #86d6c3;
+  border: 0.7vh inset #8ee6d1;
+  filter: brightness(0.9);
 }
