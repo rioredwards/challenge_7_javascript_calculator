@@ -37,6 +37,8 @@ equalsBtn.addEventListener("click", (e) => {
   if (operator === "+") {
     targetOperand = storedOperand + targetOperand;
   }
+  operator = null;
+  storedOperand = null;
   updateDisplay();
 });
 
@@ -55,8 +57,11 @@ function updateDisplay() {
     displayValue = targetOperand !== null ? targetOperand : storedOperand;
     if (operator === "+") {
       addBtn.classList.add("active");
+    } else {
+      addBtn.classList.remove("active");
     }
   } else {
+    addBtn.classList.remove("active");
     displayValue = targetOperand;
   }
   displayEl.innerText = displayValue || 0;
