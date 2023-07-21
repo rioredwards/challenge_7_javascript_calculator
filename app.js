@@ -10,7 +10,11 @@ let operator = null; // Update when an operator is clicked
 numberBtns.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     const number = e.target.innerText;
-    firstOperand = parseInt(number);
+    if (firstOperand !== null) {
+      firstOperand = firstOperand * 10 + parseInt(number);
+    } else {
+      firstOperand = parseInt(number);
+    }
     updateDisplay();
   });
 });
