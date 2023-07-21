@@ -2,6 +2,7 @@ const displayEl = document.getElementById("display");
 const numberBtns = document.querySelectorAll(".number");
 const clearBtn = document.getElementById("clear");
 const addBtn = document.getElementById("add");
+const subtractBtn = document.getElementById("subtract");
 const equalsBtn = document.getElementById("equals");
 
 let displayValue = 0;
@@ -33,9 +34,24 @@ addBtn.addEventListener("click", (e) => {
   updateDisplay();
 });
 
+subtractBtn.addEventListener("click", (e) => {
+  operator = "-";
+  storedOperand = targetOperand;
+  targetOperand = null;
+  updateDisplay();
+});
+
 equalsBtn.addEventListener("click", (e) => {
-  if (operator === "+") {
-    targetOperand = storedOperand + targetOperand;
+  switch (operator) {
+    case "+":
+      targetOperand = storedOperand + targetOperand;
+      break;
+    case "-":
+      targetOperand = storedOperand - targetOperand;
+      break;
+    default:
+      // If no operator, do nothing
+      break;
   }
   operator = null;
   storedOperand = null;
@@ -73,6 +89,9 @@ function addActiveClass() {
     case "+":
       addBtn.classList.add("active");
       break;
+    case "-":
+      subtractBtn.classList.add("active");
+      break;
     default:
       throw new Error("Invalid operator");
   }
@@ -80,6 +99,7 @@ function addActiveClass() {
 
 function removeAllActiveClasses() {
   addBtn.classList.remove("active");
+  subtractBtn.classList.remove("active");
 }
 
 updateDisplay();
