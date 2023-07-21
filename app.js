@@ -22,7 +22,11 @@ numberBtns.forEach((btn) => {
     }
 
     if (targetOperand !== null) {
-      targetOperand = targetOperand * 10 + parseInt(number);
+      if (targetOperand < 0) {
+        targetOperand = targetOperand * 10 - parseInt(number);
+      } else {
+        targetOperand = targetOperand * 10 + parseInt(number);
+      }
     } else {
       targetOperand = parseInt(number);
     }
@@ -120,27 +124,35 @@ function updateDisplay() {
 }
 
 function prettifyDisplayValue() {
+  // If value is null, return 0
   if (!displayValue) return "0";
+
+  // If value is very large or very small, return exponential notation
   if (displayValue > 999_999_999 || displayValue < -999_999_999) {
     const fixedDisplayValue = displayValue.toExponential(2);
     return fixedDisplayValue;
   }
-  const displayValueStr = displayValue.toString();
-  if (displayValueStr.length < 4) return displayValueStr;
-  const displayValueStrArr = displayValueStr.split("");
-  const displayValueStrArrLength = displayValueStrArr.length;
-  const prettifiedDisplayValueStrArr = [];
-  let counter = 0;
-  for (let i = displayValueStrArrLength - 1; i >= 0; i--) {
-    prettifiedDisplayValueStrArr.unshift(displayValueStrArr[i]);
-    counter++;
-    if (counter === 3 && i !== 0) {
-      prettifiedDisplayValueStrArr.unshift(",");
-      counter = 0;
+
+  // If value contains decimal, get precision of 12, then remove trailing zeros
+  if (displayValue % 1 !== 0) {
+    const fixedDisplayValue = displayValue.toPrecision(12);
+    const fixedDisplayValueStrArr = fixedDisplayValue.split("");
+    const fixedDisplayValueStrArrLength = fixedDisplayValueStrArr.length;
+    for (let i = fixedDisplayValueStrArrLength - 1; i >= 0; i--) {
+      if (fixedDisplayValueStrArr[i] === "0") {
+        fixedDisplayValueStrArr.pop();
+      } else if (fixedDisplayValueStrArr[i] === ".") {
+        fixedDisplayValueStrArr.pop();
+        break;
+      } else {
+        break;
+      }
     }
+    const fixedDisplayValueStr = fixedDisplayValueStrArr.join("");
+    return fixedDisplayValueStr;
   }
-  const prettifiedDisplayValueStr = prettifiedDisplayValueStrArr.join("");
-  return prettifiedDisplayValueStr;
+
+  return displayValue;
 }
 
 function updateActiveClass() {
