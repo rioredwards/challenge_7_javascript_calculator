@@ -11,7 +11,7 @@
 }
 
 html {
-  font-size: 2rem;
+  font-size: 4vh;
   font-weight: 600;
   font-family: Arial, Helvetica, sans-serif;
   height: 100vh;
@@ -35,8 +35,14 @@ h3,
 h4,
 p,
 a,
-span {
+span,
+div {
   color: rgb(255, 255, 255);
+}
+
+h1 {
+  font-size: 5vh;
+  margin: 3vh 0;
 }
 
 img {
@@ -52,21 +58,73 @@ img {
 
 .container,
 .container > * {
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .container > * {
-  position: absolute;
+  position: relative;
   z-index: 2;
 }
 
 .container {
-  background-color: #e1a249;
+  background-color: #3d3d3d;
+  padding: 1.3vh;
   position: absolute;
   z-index: 1;
   height: var(--total-height);
   width: var(--total-width);
   min-width: var(--total-min-width);
   min-height: var(--total-min-height);
-  top: 10vh;
+  top: 14vh;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1.4fr repeat(5, 1fr);
+  grid-gap: 0.9vh;
+  border-radius: 0.8vh;
+}
+
+.button,
+.display {
+  border-radius: 0.8vh;
+  padding: 2vh;
+}
+
+.button {
+  background-color: #e1a249;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.action {
+  background-color: #a6a6a6;
+}
+
+.operator {
+  background-color: #f5923e;
+}
+
+.display {
+  background-color: rgb(105, 105, 105);
+  height: 100%;
+  width: 100%;
+  grid-column: 1 / span 4;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 5vh;
+  overflow: hidden;
+}
+
+#zero {
+  grid-column: 1 / span 2;
+  justify-content: flex-start;
+}
+
+.button:hover {
+  transform: scale(1.02);
+  filter: brightness(1.08);
 }
