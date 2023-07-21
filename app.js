@@ -33,6 +33,13 @@ addBtn.addEventListener("click", (e) => {
   updateDisplay();
 });
 
+equalsBtn.addEventListener("click", (e) => {
+  if (operator === "+") {
+    targetOperand = storedOperand + targetOperand;
+  }
+  updateDisplay();
+});
+
 clearBtn.addEventListener("click", clearAll);
 
 function clearAll() {
