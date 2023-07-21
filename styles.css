@@ -128,3 +128,7 @@ img {
   transform: scale(1.02);
   filter: brightness(1.08);
 }
+
+.active {
+  border: 0.7vh inset #86d6c3;
+}

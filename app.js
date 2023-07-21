@@ -51,7 +51,14 @@ function clearAll() {
 }
 
 function updateDisplay() {
-  displayValue = targetOperand;
+  if (operator) {
+    displayValue = targetOperand !== null ? targetOperand : storedOperand;
+    if (operator === "+") {
+      addBtn.classList.add("active");
+    }
+  } else {
+    displayValue = targetOperand;
+  }
   displayEl.innerText = displayValue || 0;
   log();
 }
