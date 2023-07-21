@@ -7,6 +7,7 @@ const multiplyBtn = document.getElementById("multiply");
 const divideBtn = document.getElementById("divide");
 const equalsBtn = document.getElementById("equals");
 const changeSignBtn = document.getElementById("change-sign");
+const percentageBtn = document.getElementById("percentage");
 
 let displayValue = 0;
 let targetOperand = null;
@@ -65,6 +66,13 @@ changeSignBtn.addEventListener("click", (e) => {
   }
 });
 
+percentageBtn.addEventListener("click", (e) => {
+  if (targetOperand !== null) {
+    targetOperand = targetOperand / 100;
+    updateDisplay();
+  }
+});
+
 equalsBtn.addEventListener("click", (e) => {
   switch (operator) {
     case "+":
@@ -104,14 +112,35 @@ function updateDisplay() {
   } else {
     displayValue = targetOperand;
   }
-  let fixedDisplayValue;
-  if (displayValue !== null && displayValue % 1 !== 0) {
-    fixedDisplayValue = displayValue.toFixed(13);
-  }
+  let prettyDisplayVal = prettifyDisplayValue();
 
   updateActiveClass();
-  displayEl.innerText = fixedDisplayValue || displayValue || 0;
+  displayEl.innerText = prettyDisplayVal;
   log();
+}
+
+function prettifyDisplayValue() {
+  if (!displayValue) return "0";
+  if (displayValue > 999_999_999 || displayValue < -999_999_999) {
+    const fixedDisplayValue = displayValue.toExponential(2);
+    return fixedDisplayValue;
+  }
+  const displayValueStr = displayValue.toString();
+  if (displayValueStr.length < 4) return displayValueStr;
+  const displayValueStrArr = displayValueStr.split("");
+  const displayValueStrArrLength = displayValueStrArr.length;
+  const prettifiedDisplayValueStrArr = [];
+  let counter = 0;
+  for (let i = displayValueStrArrLength - 1; i >= 0; i--) {
+    prettifiedDisplayValueStrArr.unshift(displayValueStrArr[i]);
+    counter++;
+    if (counter === 3 && i !== 0) {
+      prettifiedDisplayValueStrArr.unshift(",");
+      counter = 0;
+    }
+  }
+  const prettifiedDisplayValueStr = prettifiedDisplayValueStrArr.join("");
+  return prettifiedDisplayValueStr;
 }
 
 function updateActiveClass() {
