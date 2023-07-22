@@ -8,6 +8,7 @@ const divideBtn = document.getElementById("divide");
 const equalsBtn = document.getElementById("equals");
 const changeSignBtn = document.getElementById("change-sign");
 const percentageBtn = document.getElementById("percentage");
+const decimalBtn = document.getElementById("decimal");
 
 let displayValue = 0;
 let targetOperand = null;
@@ -22,11 +23,7 @@ numberBtns.forEach((btn) => {
     }
 
     if (targetOperand !== null) {
-      if (targetOperand < 0) {
-        targetOperand = targetOperand * 10 - parseInt(number);
-      } else {
-        targetOperand = targetOperand * 10 + parseInt(number);
-      }
+      targetOperand = parseFloat(targetOperand.toString() + number);
     } else {
       targetOperand = parseInt(number);
     }
