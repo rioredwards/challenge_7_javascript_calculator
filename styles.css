@@ -112,7 +112,7 @@ button {
 }
 
 .display {
-  background-color: rgb(105, 105, 105);
+  background-color: rgb(86, 165, 181);
   height: 100%;
   width: 100%;
   grid-column: 1 / span 4;

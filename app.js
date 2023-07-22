@@ -12,20 +12,29 @@ const decimalBtn = document.getElementById("decimal");
 
 let displayValue = 0;
 let targetOperand = null;
+let targetIsDecimal = false;
 let storedOperand = null; // Update when an operator is clicked (And then another number is clicked)
 let operator = null; // Update when an operator is clicked
 
 numberBtns.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     const number = e.target.innerText;
-    if (number === ".") {
-      // TODO: Handle decimal
-    }
 
-    if (targetOperand !== null) {
-      targetOperand = parseFloat(targetOperand.toString() + number);
+    if (number === ".") {
+      if (targetIsDecimal) return;
+      targetIsDecimal = true;
+
+      if (targetOperand !== null) {
+        targetOperand = parseFloat(targetOperand.toString() + number);
+      } else {
+        targetOperand = parseFloat("0." + number);
+      }
     } else {
-      targetOperand = parseInt(number);
+      if (targetOperand !== null) {
+        targetOperand = parseFloat(targetOperand.toString() + number);
+      } else {
+        targetOperand = parseInt(number);
+      }
     }
 
     updateDisplay();
@@ -87,6 +96,7 @@ equalsBtn.addEventListener("click", (e) => {
       break;
     case "/":
       targetOperand = storedOperand / targetOperand;
+      if (targetOperand % 1 !== 0) targetIsDecimal = true;
       break;
     default:
       // If no operator, do nothing
@@ -102,6 +112,7 @@ clearBtn.addEventListener("click", clearAll);
 function clearAll() {
   displayValue = 0;
   targetOperand = null;
+  targetIsDecimal = false;
   storedOperand = null;
   operator = null;
   updateDisplay();
@@ -131,7 +142,7 @@ function prettifyDisplayValue() {
   }
 
   // If value contains decimal, get precision of 12, then remove trailing zeros
-  if (displayValue % 1 !== 0) {
+  if (targetIsDecimal) {
     const fixedDisplayValue = displayValue.toPrecision(12);
     const fixedDisplayValueStrArr = fixedDisplayValue.split("");
     const fixedDisplayValueStrArrLength = fixedDisplayValueStrArr.length;
