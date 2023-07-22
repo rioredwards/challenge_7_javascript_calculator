@@ -27,7 +27,7 @@ numberBtns.forEach((btn) => {
       if (targetOperand !== null) {
         targetOperand = parseFloat(targetOperand.toString() + number);
       } else {
-        targetOperand = parseFloat("0." + number);
+        targetOperand = parseFloat("0.");
       }
     } else {
       if (targetOperand !== null) {
